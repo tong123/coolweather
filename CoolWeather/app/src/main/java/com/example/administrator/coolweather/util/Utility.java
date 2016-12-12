@@ -1,6 +1,7 @@
 package com.example.administrator.coolweather.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.administrator.coolweather.model.City;
 import com.example.administrator.coolweather.model.CoolWeatherDB;
@@ -15,13 +16,15 @@ public class Utility {
 
     public synchronized static boolean handleProvinceResponse(CoolWeatherDB coolWeatherDB, String response ) {
         if( !TextUtils.isEmpty(response)) {
+            Log.d("MainActivity test:", response);
             String[] allProvinces = response.split(",");
             if( allProvinces != null && allProvinces.length>0) {
                 for (String p : allProvinces ) {
                     String[] array = p.split("\\|");
+                    Log.d("handleProvinceResponse", array[0]+array[1]);
                     Province province = new Province();
-                    province.setProvinceName(array[0]);
-                    province.setProvinceCode(array[1]);
+                    province.setProvinceCode(array[0]);
+                    province.setProvinceName(array[1]);
                     coolWeatherDB.saveProvince(province);
                 }
                 return true;
@@ -55,8 +58,8 @@ public class Utility {
                 for (String c: allcountries ) {
                     String[] array = c.split("\\|");
                     Country country = new Country();
-                    country.setCountryName(array[0]);
-                    country.setCountryCode(array[1]);
+                    country.setCountryCode(array[0]);
+                    country.setCountryName(array[1]);
                     country.setCityId(cityId);
                     coolWeatherDB.saveCountry(country);
                 }

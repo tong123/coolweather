@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by Administrator on 2016/12/10.
  */
@@ -22,6 +24,7 @@ public class HttpUtil {
             public void run() {
                 HttpURLConnection connection = null;
                 try {
+                    Log.d(TAG, "run: "+address);
                     URL url = new URL(address);
                     connection = (HttpURLConnection)url.openConnection();
                     connection.setRequestMethod("GET");

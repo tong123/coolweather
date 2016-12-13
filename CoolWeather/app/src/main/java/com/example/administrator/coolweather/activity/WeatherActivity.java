@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.administrator.coolweather.R;
 import com.example.administrator.coolweather.util.HttpCalllbackListener;
 import com.example.administrator.coolweather.util.HttpUtil;
+import com.example.administrator.coolweather.util.UtilContentHandler;
 import com.example.administrator.coolweather.util.Utility;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -57,7 +58,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void queryWeatherInfo( String weatherCode ) {
-        String address = "http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
+//        String address = "http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
+        String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey="+weatherCode;
+        UtilContentHandler.set_weather_code( weatherCode );
         queryFromServer(address, "weatherCode");
     }
 

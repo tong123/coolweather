@@ -1,5 +1,6 @@
 package com.example.administrator.coolweather.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +28,8 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView temp1Text;
     private TextView temp2Text;
     private TextView currentDateText;
-//    private Button switchCity;
-//    private Button refreshWeather;
+    private Button switchCity;
+    private Button refreshWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,28 @@ public class WeatherActivity extends AppCompatActivity {
         temp1Text = (TextView)findViewById(R.id.temp1);
         temp2Text = (TextView)findViewById(R.id.temp2);
         currentDateText = (TextView)findViewById(R.id.current_date);
+        switchCity = (Button)findViewById(R.id.switch_city);
+        refreshWeather = (Button)findViewById(R.id.refresh_weather);
+        switchCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherActivity.this, ChooseAreaActivity.class);
+                intent.putExtra("from_weather_activity", true );
+                startActivity(intent);
+                finish();
+            }
+        });
+        refreshWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                publishText.setText("同步中...");
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+                String weatherCode = preferences.getString("weather_code", "");
+                if(!TextUtils.isEmpty(weatherCode)) {
+                    queryWeatherInfo(weatherCode);
+                }
+            }
+        });
         String countryCode = getIntent().getStringExtra("country_code");
         if( !TextUtils.isEmpty(countryCode) ) {
             publishText.setText("同步中...");

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.coolweather.R;
+import com.example.administrator.coolweather.service.AutoUpdateService;
 import com.example.administrator.coolweather.util.HttpCalllbackListener;
 import com.example.administrator.coolweather.util.HttpUtil;
 import com.example.administrator.coolweather.util.UtilContentHandler;
@@ -64,6 +65,8 @@ public class WeatherActivity extends AppCompatActivity {
                 }
             }
         });
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
         String countryCode = getIntent().getStringExtra("country_code");
         if( !TextUtils.isEmpty(countryCode) ) {
             publishText.setText("同步中...");
